@@ -1,0 +1,25 @@
+version: '3'
+services:
+  couchpotato:
+    container_name: couchpotato
+    image: linuxserver/couchpotato
+    restart: unless-stopped
+    ports:
+        - 5050:5050
+    environment:
+        - PGID=1000
+        - PUID=1000
+        - TZ=America/Chicago
+        - VIRTUAL_HOST=couchpotato.joshsamara.net
+    hostname: R710-01
+    volumes:
+        - /data/config/couchpotato:/config
+        - /video/completed:/downloads
+        - /video/movies:/movies
+    networks:
+      - bridgeRestrictIP
+
+networks:
+    bridgeRestrictIP:
+        external: true
+    

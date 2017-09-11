@@ -1,0 +1,24 @@
+version: '3'
+services:
+  sickrage:
+    container_name: sickrage
+    image: linuxserver/sickrage
+    restart: unless-stopped
+    ports:
+        - 8081:8081
+    environment:
+        - PGID=1000
+        - PUID=1000
+        - TZ=America/Chicago
+        - VIRTUAL_HOST=sickrage.joshsamara.net
+    hostname: R710-01
+    volumes:
+        - /dataunsynced/config/sickrage:/config
+        - /video/completed:/downloads
+        - /video/tv:/tv
+    networks:
+      - bridgeRestrictIP
+
+networks:
+    bridgeRestrictIP:
+        external: true

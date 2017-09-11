@@ -1,0 +1,20 @@
+version: '3'
+services:
+  minecraft:
+    container_name: ftb
+    tty: true
+    stdin_open: true
+    image: itzg/minecraft-server
+    restart: unless-stopped
+    ports:
+        - 25565:25565
+    environment:
+        - TYPE=FTB
+        - FTB_SERVER_MOD=FTBBeyondServer_1.7.0.zip
+        - MIN_RAM=4G
+        - MAX_RAM=8G
+        - EULA=TRUE
+        - OPS=samara8609,baeaan
+    hostname: R710-01
+    volumes:
+        - /data/config/minecraft:/data

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  jackett:
+    container_name: jackett
+    image: linuxserver/jackett
+    restart: unless-stopped
+    ports:
+        - 9117:9117
+    environment:
+        - PGID=1000
+        - PUID=1000
+        - TZ=America/Chicago
+        - VIRTUAL_HOST=jackett.joshsamara.net
+        - JACKETT_KEY=1234
+    hostname: R710-01
+    volumes:
+        - /data/config/jackett:/config
+        - /video/completed:/downloads
+        - /etc/localtime:/etc/localtime:ro
+    networks:
+      - bridgeRestrictIP
+
+networks:
+    bridgeRestrictIP:
+        external: true
+    

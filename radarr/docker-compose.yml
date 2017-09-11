@@ -1,0 +1,25 @@
+version: '3'
+services:
+  radarr:
+    container_name: radarr
+    image: linuxserver/radarr
+    restart: unless-stopped
+    ports:
+        - 7878:7878
+    environment:
+        - TZ=America/Chicago
+        - PGID=1000
+        - PUID=1000
+        - VIRTUAL_HOST=radarr.joshsamara.net
+    hostname: R710-01
+    volumes:
+        - /dataunsynced/config/radarr:/config
+        - /video/completed:/downloads
+        - /video/movies:/movies
+        - /etc/localtime:/etc/localtime:ro
+    networks:
+      - bridgeRestrictIP
+
+networks:
+    bridgeRestrictIP:
+        external: true

@@ -1,0 +1,11 @@
+version: '3'
+services:
+  sickrage:
+    container_name: factorio
+    image: dtandersen/factorio:latest
+    restart: unless-stopped
+    ports:
+        - 27015:27015
+        - 34197:34197
+    volumes:
+        - /dataunsynced/config/factorio:/factorio
