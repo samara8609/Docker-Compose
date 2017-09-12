@@ -1,0 +1,44 @@
+version: '2'
+services:
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+    env_file:
+      - 'env.influxdb'
+    networks:
+      - bridgeRestrictIP      
+      
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - VIRTUAL_HOST=grafana.joshsamara.net
+    links:
+      - influxdb
+    networks:
+      - bridgeRestrictIP
+    
+  chronograf:
+    image: chronograf:0.12
+    container_name: chronograf
+    restart: unless-stopped
+    volumes:
+      - /dataunsynced/chronograf:/var/lib/chronograf
+    ports:
+      - "3050:10000"
+    links:
+      - influxdb
+    networks:
+      - bridgeRestrictIP
+      
+networks:
+    bridgeRestrictIP:       
+        external: true
